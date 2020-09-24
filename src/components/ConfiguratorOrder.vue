@@ -7,7 +7,6 @@
       :key="'pos'+index"
       :style="{'--indexOrder': index}">
         <img v-if="position.selectedOption.img" :src="require('../assets/icons/'+position.selectedOption.img)" alt="">
-        <!-- <div>{{ configuration[activConfigStep].title }}</div> -->
         <div class="title">{{ position.selectedOption.title }}</div>
         <div v-if="position.selectedOption.price" class="price">{{ position.selectedOption.price }} $</div>
       </div>

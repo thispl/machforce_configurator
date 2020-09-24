@@ -50,20 +50,49 @@
     <!-- </div> -->
     <div><h4>Your Cart is Empty !</h4></div>
     <div class="actions">
-      <button :class="{'show':showButton}">Start Purchase</button></div>
+      <transition name="fade" appear>
+      <button id="show-modal" @click="startConfig">
+      Start Purchase</button>
+      </transition>
+      </div>
+      <div class="modalcls">
+        <transition name="slide" appear>
+        <Configurator v-if="showConfig"  @closeConfig="closeConfig" />
+        </transition>
+      </div>
+  
   </div>
+
+
   
 </template>
 
 <script>
-// import Configurator from './components/Configurator.vue'
+import Configurator from './Configurator.vue'
 // import WelcomePage from './components/WelcomePage.vue'
 
 export default {
   components: {
-    // Configurator
+    Configurator
     // WelcomePage
   },
+  data() {
+    return {
+      showConfig: false
+    }
+  }, 
+  methods:{
+    startConfig() {
+     // console.log("Inside startConfig")
+      this.showConfig = true;
+     
+    }, 
+    closeConfig() {
+      this.showConfig = false;
+      // let element = this.$refs.modal.$el
+      //$(element).modal('show')
+    }
+  }
 };
 </script>
 
@@ -134,6 +163,16 @@ h1 {
     height: 20px;
   }
 
+.modalcls {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  z-index: 99;
+  width: 100%;
+  background-color: #FFF;
+  border-radius: 16px;
+}
   button {
     outline: none;
     border: none;

@@ -1,18 +1,22 @@
 <template>
   <div id="app">
-    <Test />
-    <!-- <Configurator /> -->
+    <Order />
   </div>
 </template>
 
 <script>
 // import Configurator from './components/Configurator.vue'
-import Test from './components/Test.vue'
+import Order from './components/Order.vue'
 
 export default {
   components: {
-    // Configurator
-    Test
+    // Configurator, 
+    Order
+  },
+  data() {
+    return {
+      showConfig: true
+    }
   }
 }
 </script>

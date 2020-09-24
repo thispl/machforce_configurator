@@ -1,14 +1,16 @@
 <template>
   <transition-group name="slide-in">
+    
     <div class="option"
-    v-for="(option,index) in getOptions"
-    :key="'opt'+index"
-    :style="{'--index': index}"
-    @click="selectOption(option)">
-      <img v-if="option.img" :src="require('../assets/icons/'+option.img)" alt="">
-      <div class="title">{{ option.title }}</div>
-      <div v-if="option.price" class="price">{{ option.price }} $</div>
-    </div>
+      v-for="(option,index) in getOptions"
+      :key="'opt'+index"
+      :style="{'--index': index}"
+      @click="selectOption(option)">
+        <img v-if="option.img" :src="require('../assets/icons/'+option.img)" alt="">
+        <div class="title">{{ option.title }}</div>
+        <div v-if="option.price" class="price">{{ option.price }} $</div>
+      </div>
+     
   </transition-group>
 </template>
 
@@ -16,15 +18,33 @@
   export default {
     props: [
       'activeConfigStep',
-      'configuration'
+      'configuration', 
+      'filter'
     ],
     data: () => {
       return {
-        showOptions: false
+        showOptions: false, 
+        showText: false
       }
     },
+    watch: {
+      filter: function () {
+        if (this.filter) {
+          var optionElement = this.configuration[this.activeConfigStep].options; 
+          var newOptions = []; 
+          optionElement.forEach(element => {
+             if (element.title == this.filter) {
+               newOptions.push(element); 
+             }
+          });
+          this.configuration[this.activeConfigStep].options = newOptions;
+        }
+      }
+    }, 
     computed: {
       getOptions() {
+        //console.log(this.configuration[this.activeConfigStep].options); 
+       
         return this.showOptions === true ?
           this.configuration[this.activeConfigStep].options : [];
       }
@@ -39,10 +59,16 @@
             this.showOptions = true;
           }, 500);
         }
+        
       }
     },
     mounted() {
       this.showOptions = true;
+      
+      if (this.configuration[this.activeConfigStep].display == 'text'){
+          this.showText = true; 
+      }
+     //console.log(this.filter);
     }
   }
 </script>

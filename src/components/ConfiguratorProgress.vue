@@ -38,8 +38,9 @@
     justify-content: center;
     align-items: center;
     width: 100%;
-    height: 50px;
-    margin-bottom: 10px;
+    height: 0px;
+    margin-top: 110px;
+    margin-bottom: 0px;
   }
 
   .progress-step {
